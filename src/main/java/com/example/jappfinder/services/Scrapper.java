@@ -7,6 +7,6 @@ import com.example.jappfinder.driver.SearchFilter;
 import java.util.List;
 
 public interface Scrapper {
-	List<PropertyInfo> getProperties(SearchFilter filter); 
+	List<PropertyInfo> getProperties(SearchFilter filter);
 	PropertyAdditionalInfo getAdditionalInfo(String url);
 }
