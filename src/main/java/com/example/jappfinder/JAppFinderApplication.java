@@ -7,10 +7,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.example.jappfinder.driver.BrowserDriver;
-import com.example.jappfinder.driver.BrowserDriverImpl;
-import com.example.jappfinder.driver.SearchFilter;
-
 import java.util.Arrays;
 
 
@@ -35,8 +31,16 @@ public class JAppFinderApplication {
 			}
 			
 			
-			var browser = new BrowserDriverImpl();
-			browser.fetchProperties(new SearchFilter());
+			//var browser = new BrowserDriverImpl();
+			//browser.fetchProperties(new SearchFilter());
+			/*
+			 * var url =
+			 * "https://www.vivareal.com.br/imovel/sobrado-4-quartos-jardim-altos-do-itavuvu-bairros-sorocaba-com-garagem-130m2-venda-RS385000-id-2721191252/";
+			 * var result = browser.fetchPropertyAdditionalInfo(url);
+			 * System.out.println("Coordinates: %s, [%s]".formatted(result.getLatitude(),
+			 * result.getLongitude()));
+			 * System.out.println("Publisher: %s".formatted(result.getPublisher()));
+			 */
 		};
 	}
 

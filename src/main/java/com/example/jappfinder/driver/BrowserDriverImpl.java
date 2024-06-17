@@ -165,6 +165,45 @@ public class BrowserDriverImpl implements BrowserDriver {
         }
 	}
 	
+	// TODO: Move this method to another class
+	@Override
+	public PropertyAdditionalInfo fetchPropertyAdditionalInfo(String url) {
+		var page = getBrowser().newPage();
+		page.navigate(url);
+		
+		var propertyAdditionalInfo = new PropertyAdditionalInfo();
+		var coordinates = getCoordinates(page);
+		propertyAdditionalInfo.setLatitude(coordinates.getLatitude());
+		propertyAdditionalInfo.setLongitude(coordinates.getLongitude());
+		propertyAdditionalInfo.setPublisher(getPublisher(page));
+		return propertyAdditionalInfo;
+	}
+	
+	private Coordinates getCoordinates(Page page) {
+		var coordinates = new Coordinates();
+		
+		page.waitForRequest((request) -> {
+			if (request.url().contains("map")) {
+				var locationQueryString = request.url().split("&q=")[1];
+                var coordidatesSplited = locationQueryString.split(",");
+                coordinates.setLatitude(coordidatesSplited[0]);
+                coordinates.setLongitude(coordidatesSplited[1]);
+				return true;
+			}
+			return false;
+		}, () -> {
+			page.locator(".map__navigate").click();
+		});
+		
+		return coordinates;
+	}
+	
+	private String getPublisher(Page page) {
+		var publisherSection = page.locator(".publisher__name").first();
+        var text = publisherSection.textContent();
+        return text.trim();
+	}
+	
 	@Override
 	public List<String> searchCitiesAvailable() {
 		// TODO Auto-generated method stub

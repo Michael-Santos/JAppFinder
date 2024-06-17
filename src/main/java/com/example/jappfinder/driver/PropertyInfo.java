@@ -12,7 +12,4 @@ public class PropertyInfo {
 	private String garage;
 	private String price;
 	private String address;
-	private String latitude;
-	private String longitude;
-	private String publisher;
 }
