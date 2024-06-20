@@ -21,15 +21,6 @@ public class JAppFinderApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
-
-			System.out.println("Let's inspect the beans provided by Spring Boot:");
-
-			var beanNames = ctx.getBeanDefinitionNames();
-			Arrays.sort(beanNames);
-			for (String beanName : beanNames) {
-				System.out.println(beanName);
-			}
-			
 			
 			//var browser = new BrowserDriverImpl();
 			//browser.fetchProperties(new SearchFilter());

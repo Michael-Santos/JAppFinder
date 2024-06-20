@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,8 +19,12 @@ public class Query {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	private Status status;
+	private String city;
+	private String state;
 	
 	@OneToMany(mappedBy = "query",
+			fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL)
 	private List<Property> properties = new ArrayList<Property>();
 }
