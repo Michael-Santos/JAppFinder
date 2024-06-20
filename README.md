@@ -11,7 +11,9 @@ Minha ideia principal é criar um frontend em que serão plotados os imóveis em
 
 ### ROADMAP
 - [x] Carregar informações básicas de imóveis
-- [x] Carregar endereço do imóvel
+- [x] Carregar informações adicionais de imóveis 
+- [x] Carregar endereço de imóveis
+- [ ] Caregar informações de imóveis via job
 - [ ] Plotar informações no frontend
 - [ ] Encontrar coordenada no imóvel (Geocode)
 - [ ] Fazer pesquisa pelo próprio frontend
