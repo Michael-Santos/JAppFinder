@@ -10,10 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Getter @Setter @NoArgsConstructor
 public class Query {
 	
 	@Id
@@ -22,6 +23,10 @@ public class Query {
 	private Status status;
 	private String city;
 	private String state;
+	
+	public Query(Long id) {
+		this.id = id;
+	}
 	
 	@OneToMany(mappedBy = "query",
 			fetch = FetchType.LAZY,

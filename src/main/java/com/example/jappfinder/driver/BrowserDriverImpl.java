@@ -209,4 +209,9 @@ public class BrowserDriverImpl implements BrowserDriver {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void close() {
+		browser.close();		
+	}
 }

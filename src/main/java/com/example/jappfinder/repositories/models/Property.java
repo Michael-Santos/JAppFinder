@@ -1,11 +1,11 @@
 package com.example.jappfinder.repositories.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +19,7 @@ public class Property {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "query_id")
+	@JoinColumn
 	private Query query;
 	
 	private String url;

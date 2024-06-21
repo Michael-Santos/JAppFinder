@@ -2,6 +2,7 @@ package com.example.jappfinder.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class QueryServiceImpl implements QueryService {
 	}
 
 	@Override
-	public Long createQuery(QueryFilter queryFilter) {
+	public Long add(QueryFilter queryFilter) {
 		var query = new Query();
 		query.setStatus(Status.NOT_STARTED);
 		query.setCity(queryFilter.getCity());
@@ -34,6 +35,16 @@ public class QueryServiceImpl implements QueryService {
 		var queries = new ArrayList<Query>();
 		queryRepository.findAll().forEach(queries::add);
 		return queries;
+	}
+
+	@Override
+	public Optional<Query> getFirstNotStarted() {
+		return queryRepository.findTopByStatus(Status.NOT_STARTED);
+	}
+
+	@Override
+	public Query update(Query query) {
+		return queryRepository.save(query);
 	}
 	
 }

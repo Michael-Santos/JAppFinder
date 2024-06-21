@@ -9,4 +9,5 @@ import java.util.List;
 public interface Scrapper {
 	List<PropertyInfo> getProperties(SearchFilter filter);
 	PropertyAdditionalInfo getAdditionalInfo(String url);
+	void close();
 }

@@ -27,5 +27,10 @@ public class ScrapperImpl implements Scrapper {
 	public PropertyAdditionalInfo getAdditionalInfo(String url) {
 		return driver.fetchPropertyAdditionalInfo(url);
 	}
+
+	@Override
+	public void close() {
+		driver.close();
+	}	
 	
 }

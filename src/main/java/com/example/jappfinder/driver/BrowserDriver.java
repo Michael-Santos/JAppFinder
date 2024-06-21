@@ -6,4 +6,5 @@ public interface BrowserDriver {
 	List<PropertyInfo> fetchProperties(SearchFilter filter);
 	PropertyAdditionalInfo fetchPropertyAdditionalInfo(String url);
 	List<String> searchCitiesAvailable();
+	void close();
 }
