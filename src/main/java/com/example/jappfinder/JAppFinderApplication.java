@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.example.jappfinder.driver.BrowserDriverImpl;
+
 import java.util.Arrays;
 
 
@@ -24,7 +26,13 @@ public class JAppFinderApplication {
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
 			
-			//var browser = new BrowserDriverImpl();
+			/*
+			 * var browser = new BrowserDriverImpl(); var result =
+			 * browser.fetchPropertyAdditionalInfo(
+			 * "https://www.vivareal.com.br/imovel/casa-3-quartos-vila-haro-bairros-sorocaba-com-garagem-60m2-venda-RS350000-id-2698562133/"
+			 * );
+			 */
+			
 			//browser.fetchProperties(new SearchFilter());
 			/*
 			 * var url =
