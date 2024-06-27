@@ -193,12 +193,12 @@ public class BrowserDriverImpl implements BrowserDriver {
 		var coordinates = new Coordinates();
 		
 		page.waitForRequest((request) -> {
-			if (request.url().contains("map")) {
+			if (request.url().contains("maps/embed")) {
 				var locationQueryString = request.url().split("&q=")[1];
                 var coordidatesSplited = locationQueryString.split(",");
                 
                 try {
-                	Integer.parseInt(coordidatesSplited[0].trim());
+                	Float.parseFloat(coordidatesSplited[0].trim());
                 } catch (NumberFormatException nfe) {
                 	coordinates.setLatitude(null);
                     coordinates.setLongitude(null);
