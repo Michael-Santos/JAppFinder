@@ -136,7 +136,8 @@ public class BrowserDriverImpl implements BrowserDriver {
 	private String getBedrooms(Locator locator) {
 		var cardSection = locator.locator("li.property-card__detail-room").first();
 		var bedroomSection = cardSection.locator("span.js-property-card-value").first();
-		return bedroomSection.textContent();
+		var text = bedroomSection.textContent();
+		return text.trim();
 	}
 
 	private String getBathrooms(Locator locator) {
