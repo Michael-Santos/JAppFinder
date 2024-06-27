@@ -16,13 +16,17 @@ public class BrowserDriverImpl implements BrowserDriver {
 	
 	private BrowserContext browser;
 	
+	private Page page;
+	
 	public BrowserDriverImpl() {}
 	
 	private BrowserContext Initilize() {
-		var userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0";
+		var userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 OPR/109.0.0.0";
 		
-		var browserOptions = new BrowserType.LaunchOptions().setHeadless(false);
-		var browserNewContext = new Browser.NewContextOptions().setUserAgent(userAgent);
+		var browserOptions = new BrowserType.LaunchOptions().setHeadless(false)
+				.setArgs(List.of("--start-maximized"));
+		var browserNewContext = new Browser.NewContextOptions().setUserAgent(userAgent)
+				.setViewportSize(null);
 		
 		Playwright playwright = Playwright.create();
         var browser = playwright.chromium().launch(browserOptions);
@@ -35,6 +39,14 @@ public class BrowserDriverImpl implements BrowserDriver {
 		
 		browser = Initilize();
 		return browser;
+	}
+	
+	private Page getPage() {
+		if (page != null) 
+			return page;
+		
+		page = getBrowser().newPage();
+		return page;
 	}
 	
 	@Override
@@ -168,7 +180,7 @@ public class BrowserDriverImpl implements BrowserDriver {
 	// TODO: Move this method to another class
 	@Override
 	public PropertyAdditionalInfo fetchPropertyAdditionalInfo(String url) {
-		var page = getBrowser().newPage();
+		var page = getPage();
 		page.navigate(url);
 		
 		var propertyAdditionalInfo = new PropertyAdditionalInfo();

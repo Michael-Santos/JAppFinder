@@ -46,5 +46,10 @@ public class QueryServiceImpl implements QueryService {
 	public Query update(Query query) {
 		return queryRepository.save(query);
 	}
+
+	@Override
+	public Optional<Query> getFirstPropertiesFetched() {
+		return queryRepository.findTopByStatus(Status.PROPERTIES_FECTHED);
+	}
 	
 }

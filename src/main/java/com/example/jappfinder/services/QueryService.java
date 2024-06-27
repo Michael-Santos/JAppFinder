@@ -10,5 +10,6 @@ public interface QueryService {
 	Long add(QueryFilter queryFilter);
 	List<Query> getAll();
 	Optional<Query> getFirstNotStarted();
+	Optional<Query> getFirstPropertiesFetched();
 	Query update(Query query);
 }
