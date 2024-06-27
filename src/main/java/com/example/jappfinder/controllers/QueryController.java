@@ -2,6 +2,8 @@ package com.example.jappfinder.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,8 +26,9 @@ public class QueryController {
 	}
 	
 	@GetMapping
-	public List<QueryDTO> getAll() {
-		return queryService.getAll().stream().map(q -> mapToDOT(q)).toList();
+	public ResponseEntity<List<QueryDTO>> getAll() {
+		var result = queryService.getAll().stream().map(q -> mapToDOT(q)).toList();
+		return new ResponseEntity<List<QueryDTO>>(result, HttpStatus.OK);
 	}
 	
 	@PostMapping

@@ -10,4 +10,5 @@ import com.example.jappfinder.repositories.models.Property;
 public interface PropertyRepository extends CrudRepository<Property, Long> {
 	List<Property> findByQueryId(Long queryId, Pageable pageable);
 	long countByQueryId(Long queryId);
+	List<Property> findAll();
 }

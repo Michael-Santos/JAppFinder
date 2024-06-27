@@ -37,5 +37,10 @@ public class PropertyServiceImpl implements PropertyService {
 	public long countByQueryId(Long queryId) {
 		return propertyRepository.countByQueryId(queryId);
 	}
+
+	@Override
+	public List<Property> getAll() {
+		return propertyRepository.findAll();
+	}
 	
 }
