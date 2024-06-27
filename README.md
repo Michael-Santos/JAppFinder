@@ -13,7 +13,8 @@ Minha ideia principal é criar um frontend em que serão plotados os imóveis em
 - [x] Carregar informações básicas de imóveis
 - [x] Carregar informações adicionais de imóveis 
 - [x] Carregar endereço de imóveis
-- [ ] Caregar informações de imóveis via job
+- [x] Caregar informações básicas de imóveis via job
+- [ ] Carregar informações adicionais de imóveis via job
 - [ ] Plotar informações no frontend
 - [ ] Encontrar coordenada no imóvel (Geocode)
 - [ ] Fazer pesquisa pelo próprio frontend
