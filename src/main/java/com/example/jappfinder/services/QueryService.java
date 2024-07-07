@@ -9,6 +9,7 @@ import com.example.jappfinder.repositories.models.Query;
 public interface QueryService {
 	Long add(QueryFilter queryFilter);
 	List<Query> getAll();
+	Optional<Query> getById(Long id);
 	Optional<Query> getFirstNotStarted();
 	Optional<Query> getFirstPropertiesFetched();
 	Query update(Query query);

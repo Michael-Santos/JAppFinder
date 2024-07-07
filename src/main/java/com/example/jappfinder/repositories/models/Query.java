@@ -2,6 +2,9 @@ package com.example.jappfinder.repositories.models;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.jappfinder.domain.QueryDTO;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,4 +35,14 @@ public class Query {
 			fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL)
 	private List<Property> properties = new ArrayList<Property>();
+	
+	public QueryDTO mapToDTO() {
+		var queryDTO = new QueryDTO();
+		queryDTO.setId(id);
+		queryDTO.setCity(city);
+		queryDTO.setState(state);
+		queryDTO.setStatus(status);
+		return queryDTO;
+	}
+	
 }

@@ -51,5 +51,10 @@ public class QueryServiceImpl implements QueryService {
 	public Optional<Query> getFirstPropertiesFetched() {
 		return queryRepository.findTopByStatus(Status.PROPERTIES_FECTHED);
 	}
+
+	@Override
+	public Optional<Query> getById(Long id) {
+		return queryRepository.findById(id);
+	}
 	
 }

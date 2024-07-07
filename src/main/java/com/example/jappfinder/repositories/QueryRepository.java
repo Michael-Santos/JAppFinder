@@ -9,4 +9,5 @@ import com.example.jappfinder.repositories.models.Status;
 
 public interface QueryRepository extends CrudRepository<Query, Long>{
 	Optional<Query> findTopByStatus(Status status);
+	Optional<Query> findById(Long id);
 }

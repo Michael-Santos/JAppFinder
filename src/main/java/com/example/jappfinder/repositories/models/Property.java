@@ -1,5 +1,7 @@
 package com.example.jappfinder.repositories.models;
 
+import com.example.jappfinder.domain.PropertyDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,4 +33,21 @@ public class Property {
 	private String latitude;
 	private String longitude;
 	private String publisher;
+	
+	public PropertyDTO mapToDTO() {
+		var propertyDTO = new PropertyDTO();
+		propertyDTO.setId(id);
+		propertyDTO.setAddress(address);
+		propertyDTO.setBathrooms(bathrooms);
+		propertyDTO.setBedrooms(bedrooms);
+		propertyDTO.setDimension(dimension);
+		propertyDTO.setGarage(garage);
+		propertyDTO.setLatitude(latitude);
+		propertyDTO.setLongitude(longitude);
+		propertyDTO.setPrice(price);
+		propertyDTO.setPublisher(publisher);
+		propertyDTO.setUrl(url);
+		return propertyDTO;
+	}
+	
 }
