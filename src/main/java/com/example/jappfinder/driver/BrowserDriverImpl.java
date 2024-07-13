@@ -1,8 +1,10 @@
 package com.example.jappfinder.driver;
 
 import java.nio.file.FileSystems;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
@@ -53,7 +55,7 @@ public class BrowserDriverImpl implements BrowserDriver {
 		var properties = new ArrayList<PropertyInfo>();
 		var page = getBrowser().newPage();
 		var url = String.format("https://www.vivareal.com.br/%s/%s/%s", filter.getOperationType().getValue(),
-				filter.getState(), filter.getCity());
+				normalizeState(filter.getState()), normalizeCity(filter.getCity()));
 		page.navigate(url);
 
 		var numberPropertiesTotal = getTotalNumberProperties(page);
@@ -75,7 +77,7 @@ public class BrowserDriverImpl implements BrowserDriver {
 
 	private void goToPage(int pageNumber, Page page, SearchFilter filter) {
 		var url = String.format("https://www.vivareal.com.br/%s/%s/%s?pagina=%s", filter.getOperationType(),
-				filter.getState(), filter.getCity(), pageNumber);
+				normalizeState(filter.getState()), normalizeCity(filter.getCity()), pageNumber);
 		page.navigate(url);
 		page.screenshot(new ScreenshotOptions().setPath(FileSystems.getDefault().getPath("screenshot.png")));
 	}
@@ -101,15 +103,6 @@ public class BrowserDriverImpl implements BrowserDriver {
 		property.setGarage(getGarage(locator));
 		property.setPrice(getPrice(locator));
 		property.setAddress(getAddress(locator));
-
-		// TODO: Get additional infos
-		/*
-		 * var propertyPage = await OpenPropertyPage(property.Url); var coordinates =
-		 * await GetPosition(propertyPage); property.Latitude = coordinates.Latitude;
-		 * property.Longitude = coordinates.Longitude; property.Publisher = await
-		 * GetPublisher(propertyPage); await propertyPage.CloseAsync();
-		 */
-
 		return property;
 	}
 
@@ -225,14 +218,19 @@ public class BrowserDriverImpl implements BrowserDriver {
 	}
 
 	@Override
-	public List<String> searchCitiesAvailable() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void close() {
 		browser.close();
+	}
+	
+	private static String normalizeCity(String value) {
+        String normalizer = Normalizer.normalize(value, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        var valueWithoutAccents = pattern.matcher(normalizer).replaceAll("");
+        return valueWithoutAccents.replace(" ", "-").toLowerCase();
+	}
+	
+	private static String normalizeState(String value) {
+		return value.toLowerCase();
 	}
 	
 }
