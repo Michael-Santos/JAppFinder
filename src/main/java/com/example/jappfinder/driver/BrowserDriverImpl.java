@@ -58,6 +58,8 @@ public class BrowserDriverImpl implements BrowserDriver {
 				normalizeState(filter.getState()), normalizeCity(filter.getCity()));
 		page.navigate(url);
 
+		setOptionalFilters(filter, page);
+		
 		var numberPropertiesTotal = getTotalNumberProperties(page);
 		var pageSize = getPageSize(page);
 		var totalPages = (numberPropertiesTotal / pageSize);
@@ -75,13 +77,53 @@ public class BrowserDriverImpl implements BrowserDriver {
 		return properties;
 	}
 
+	private void setOptionalFilters(SearchFilter filter, Page page) {
+		if (filter.getMinPrice() != 0)		
+			setMinPrice(page, filter.getMinPrice());
+		
+		if (filter.getMaxPrice() != Integer.MAX_VALUE) 
+			setMaxPrice(page, filter.getMaxPrice());
+		
+		if (filter.getMinDimension() != 0)
+			setMinDimension(page, filter.getMinDimension());
+		
+		if (filter.getMaxDimension() != Integer.MAX_VALUE)
+			setMaxDimension(page, filter.getMaxDimension());
+		
+		page.keyboard().press("Enter");;
+	}
+
 	private void goToPage(int pageNumber, Page page, SearchFilter filter) {
 		var url = String.format("https://www.vivareal.com.br/%s/%s/%s?pagina=%s", filter.getOperationType(),
 				normalizeState(filter.getState()), normalizeCity(filter.getCity()), pageNumber);
 		page.navigate(url);
 		page.screenshot(new ScreenshotOptions().setPath(FileSystems.getDefault().getPath("screenshot.png")));
 	}
+	
+	private void setMinPrice(Page page, int minPrice) {
+		var inputMinPrice = page.locator("#filter-range-from-price").first();
+		inputMinPrice.click();
+		inputMinPrice.fill(String.valueOf(minPrice));
+	}
 
+	private void setMaxPrice(Page page, int maxPrice) {
+		var inputMaxPrice = page.locator("#filter-range-to-price").first();
+		inputMaxPrice.click();
+		inputMaxPrice.fill(String.valueOf(maxPrice));
+	}
+	
+	private void setMinDimension(Page page, int minDimension) {
+		var inputMinDimension = page.locator("#filter-range-from-area").first();
+		inputMinDimension.click();
+		inputMinDimension.fill(String.valueOf(minDimension));
+	}
+
+	private void setMaxDimension(Page page, int maxDimension) {
+		var inputMaxDimension = page.locator("#filter-range-to-area").first();
+		inputMaxDimension.click();
+		inputMaxDimension.fill(String.valueOf(maxDimension));
+	}
+	
 	private List<PropertyInfo> fetchPropertiesOnPage(Page page) {
 		var properties = new ArrayList<PropertyInfo>();
 		var resultList = page.locator("[data-type=\"property\"]");

@@ -7,8 +7,12 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor
 public class SearchFilter {
 	private String state = "sp";
-	private String city = "sorocaba";
-	private int MaxPages = 1;
+	private String city = "sorocaba"; 
+	private int minPrice = 0;
+	private int maxPrice = Integer.MAX_VALUE;
+	private int minDimension = 0;
+	private int maxDimension = Integer.MAX_VALUE;
+	private int maxPages = 1;
 	private OperationType operationType = OperationType.SELL;
 	
 	public SearchFilter(String state, String city) {
