@@ -174,13 +174,27 @@ public class BrowserDriverImpl implements BrowserDriver {
 	public PropertyAdditionalInfo fetchPropertyAdditionalInfo(String url) {
 		var page = getPage();
 		page.navigate(url);
-
+		wait(2);
+		
 		var propertyAdditionalInfo = new PropertyAdditionalInfo();
 		var coordinates = getCoordinates(page);
 		propertyAdditionalInfo.setLatitude(coordinates.getLatitude());
 		propertyAdditionalInfo.setLongitude(coordinates.getLongitude());
+		
+		closeMapIfNecessary();
+		
 		propertyAdditionalInfo.setPublisher(getPublisher(page));
 		return propertyAdditionalInfo;
+	}
+	
+	private Locator findMapButton() {
+		var mapButton = page.locator("#modal-map-button");
+		return mapButton.count() > 0 ? mapButton.first() : null;
+	}
+	
+	private void closeMapIfNecessary() {
+		var buttton = page.locator("//button[@aria-label='Fechar']");
+		if (buttton.count() > 0) buttton.click();
 	}
 
 	private Coordinates getCoordinates(Page page) {
@@ -205,15 +219,24 @@ public class BrowserDriverImpl implements BrowserDriver {
 			}
 			return false;
 		}, () -> {
-			page.locator(".map__navigate").click();
+			var mapButton = findMapButton();
+			if (mapButton != null) {
+				mapButton.click();
+			} else {
+				page.locator(".map__navigate").click();
+			}
 		});
 		
 		return coordinates;
 	}
 
 	private String getPublisher(Page page) {
-		var publisherSection = page.locator(".publisher__name").first();
-		var text = publisherSection.textContent();
+		var publisherSection = page.locator(".publisher__name");
+		
+		if (publisherSection.count() == 0) 
+			publisherSection = page.locator(".advertiser-info__credentials");
+		
+		var text = publisherSection.first().textContent();
 		return text.trim();
 	}
 
@@ -231,6 +254,14 @@ public class BrowserDriverImpl implements BrowserDriver {
 	
 	private static String normalizeState(String value) {
 		return value.toLowerCase();
+	}
+	
+	private static void wait(int seconds) {
+		try {
+		    Thread.sleep(seconds * 1000);
+		} catch (InterruptedException ie) {
+		    Thread.currentThread().interrupt();
+		}
 	}
 	
 }
