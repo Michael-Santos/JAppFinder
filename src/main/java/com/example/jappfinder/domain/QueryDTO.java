@@ -11,4 +11,8 @@ public class QueryDTO {
 	private Status status;
 	private String city;
 	private String state;
+	private int minPrice;
+	private int maxPrice;
+	private int minDimension;
+	private int maxDimension;
 }

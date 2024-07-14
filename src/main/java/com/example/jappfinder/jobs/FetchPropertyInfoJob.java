@@ -6,7 +6,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.example.jappfinder.driver.PropertyInfo;
-import com.example.jappfinder.driver.SearchFilter;
 import com.example.jappfinder.repositories.models.Property;
 import com.example.jappfinder.repositories.models.Query;
 import com.example.jappfinder.repositories.models.Status;
@@ -37,7 +36,7 @@ public class FetchPropertyInfoJob {
 		  logger.info("[FetchPropertyInfoJob] A job was found: ID {}", job.getId());
 		  
 		  var scrapper = scrapperFactory.create();
-		  var filter = new SearchFilter(job.getState(), job.getCity());
+		  var filter = job.mapToSearchFilter();
 		  var properties = scrapper.getProperties(filter);
 		  var propertiesMapped = properties.stream().map((p) -> MapProperty(p, job.getId())).toList();
 		  scrapper.close();

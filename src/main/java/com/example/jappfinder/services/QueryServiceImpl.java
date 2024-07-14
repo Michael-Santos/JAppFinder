@@ -22,10 +22,7 @@ public class QueryServiceImpl implements QueryService {
 
 	@Override
 	public Long add(QueryFilter queryFilter) {
-		var query = new Query();
-		query.setStatus(Status.NOT_STARTED);
-		query.setCity(queryFilter.getCity());
-		query.setState(queryFilter.getState());
+		var query = queryFilter.mapToQuery();
 		var result = queryRepository.save(query);
 		return result.getId();
 	}

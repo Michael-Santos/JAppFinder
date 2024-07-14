@@ -78,19 +78,12 @@ public class BrowserDriverImpl implements BrowserDriver {
 	}
 
 	private void setOptionalFilters(SearchFilter filter, Page page) {
-		if (filter.getMinPrice() != 0)		
-			setMinPrice(page, filter.getMinPrice());
-		
-		if (filter.getMaxPrice() != Integer.MAX_VALUE) 
-			setMaxPrice(page, filter.getMaxPrice());
-		
-		if (filter.getMinDimension() != 0)
-			setMinDimension(page, filter.getMinDimension());
-		
-		if (filter.getMaxDimension() != Integer.MAX_VALUE)
-			setMaxDimension(page, filter.getMaxDimension());
-		
-		page.keyboard().press("Enter");;
+		if (filter.getMinPrice() != 0) setMinPrice(page, filter.getMinPrice());
+		if (filter.getMaxPrice() != Integer.MAX_VALUE) setMaxPrice(page, filter.getMaxPrice());
+		if (filter.getMinDimension() != 0) setMinDimension(page, filter.getMinDimension());
+		if (filter.getMaxDimension() != Integer.MAX_VALUE) setMaxDimension(page, filter.getMaxDimension());
+		wait(2);
+		page.keyboard().press("Enter");
 	}
 
 	private void goToPage(int pageNumber, Page page, SearchFilter filter) {

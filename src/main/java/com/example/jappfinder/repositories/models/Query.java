@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.jappfinder.domain.QueryDTO;
+import com.example.jappfinder.driver.SearchFilter;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -26,6 +27,10 @@ public class Query {
 	private Status status;
 	private String city;
 	private String state;
+	private int minPrice;
+	private int maxPrice;
+	private int minDimension;
+	private int maxDimension;
 	
 	public Query(Long id) {
 		this.id = id;
@@ -42,7 +47,21 @@ public class Query {
 		queryDTO.setCity(city);
 		queryDTO.setState(state);
 		queryDTO.setStatus(status);
+		queryDTO.setMinPrice(minPrice);
+		queryDTO.setMaxPrice(maxPrice);
+		queryDTO.setMinDimension(minDimension);
+		queryDTO.setMaxDimension(maxDimension);
 		return queryDTO;
 	}
 	
+	public SearchFilter mapToSearchFilter() {
+		var filter = new SearchFilter();
+		filter.setState(state);
+		filter.setCity(city);
+		filter.setMinPrice(minPrice);
+		filter.setMaxPrice(maxPrice);
+		filter.setMinDimension(minDimension);
+		filter.setMaxDimension(maxDimension);
+		return filter;
+	}
 }
