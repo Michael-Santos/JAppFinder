@@ -63,6 +63,7 @@ public class FechPropertyAdditionalInfoJob {
 		
 		job.setStatus(Status.COMPLETED);
 		queryService.update(job);
+		logger.info("[FetchPropertyAdditionalInfoJob] Job {} completed!", job.getId());
 	}
 	
 	private PropertyAdditionalInfo fetchAdditionalInfoWithRetry(String url, Long properyId) throws InterruptedException {
