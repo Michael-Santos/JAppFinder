@@ -31,3 +31,7 @@ Entretanto, acredito em um primeiro momento que seja uma boa ideia tentar fazer 
 Estou pensando em utilizar o seguinte serviço para a marcação:
  - [Map Maker](https://maps.co)
  - [MapBox Maps](https://docs.mapbox.com/help/how-to-videos/custom-markers-gl-js-video/)
+
+### Usar proxy para evitar erro de too many requests
+Estive vendo algumas alternativas e achei esse serviço que possui um tier gratuito:
+ - [WebShare](https://www.webshare.io/pricing)
