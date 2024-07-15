@@ -71,7 +71,7 @@ public class FechPropertyAdditionalInfoJob {
 		Scrapper scrapper = null;
 		do {
 			try {
-				scrapper = scrapperFactory.create();
+				scrapper = scrapperFactory.create(false);
 				var result = scrapper.getAdditionalInfo(url);
 				scrapper.close();
 				return result;

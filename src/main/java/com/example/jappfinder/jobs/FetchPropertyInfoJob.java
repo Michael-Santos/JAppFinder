@@ -35,7 +35,7 @@ public class FetchPropertyInfoJob {
 		  
 		  logger.info("[FetchPropertyInfoJob] A job was found: ID {}", job.getId());
 		  
-		  var scrapper = scrapperFactory.create();
+		  var scrapper = scrapperFactory.create(true);
 		  var filter = job.mapToSearchFilter();
 		  var properties = scrapper.getProperties(filter);
 		  var propertiesMapped = properties.stream().map((p) -> MapProperty(p, job.getId())).toList();

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.example.jappfinder.config.ScrapperProperties;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.BrowserType;
@@ -13,14 +14,18 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Page.ScreenshotOptions;
 import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.options.Proxy;
 
 public class BrowserDriverImpl implements BrowserDriver {
 
 	private BrowserContext browser;
-
 	private Page page;
-
-	public BrowserDriverImpl() {
+	private boolean useProxy;
+	private ScrapperProperties scrapperProperties;
+	
+	public BrowserDriverImpl(boolean useProxy, ScrapperProperties scrapperProperties) {
+		this.useProxy = useProxy;
+		this.scrapperProperties = scrapperProperties;
 	}
 
 	private BrowserContext Initilize() {
@@ -29,6 +34,13 @@ public class BrowserDriverImpl implements BrowserDriver {
 		var browserOptions = new BrowserType.LaunchOptions().setHeadless(false).setArgs(List.of("--start-maximized"));
 		var browserNewContext = new Browser.NewContextOptions().setUserAgent(userAgent).setViewportSize(null);
 
+		if (useProxy) {
+			browserOptions.setProxy(
+					new Proxy(scrapperProperties.getServer())
+					.setUsername(scrapperProperties.getUsername())
+					.setPassword(scrapperProperties.getPassword()));
+		}
+		
 		Playwright playwright = Playwright.create();
 		var browser = playwright.chromium().launch(browserOptions);
 		return browser.newContext(browserNewContext);
@@ -82,8 +94,16 @@ public class BrowserDriverImpl implements BrowserDriver {
 		if (filter.getMaxPrice() != Integer.MAX_VALUE) setMaxPrice(page, filter.getMaxPrice());
 		if (filter.getMinDimension() != 0) setMinDimension(page, filter.getMinDimension());
 		if (filter.getMaxDimension() != Integer.MAX_VALUE) setMaxDimension(page, filter.getMaxDimension());
-		wait(2);
-		page.keyboard().press("Enter");
+		
+		page.waitForRequest((request) -> {
+			if (request.url().contains("https://glue-api.vivareal.com/v2/listings")) {
+				return true;
+			}
+			return false;
+		}, () -> {
+			page.keyboard().press("Enter");
+		});
+		
 	}
 
 	private void goToPage(int pageNumber, Page page, SearchFilter filter) {

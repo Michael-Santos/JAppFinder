@@ -2,20 +2,18 @@ package com.example.jappfinder.services;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
+import com.example.jappfinder.config.ScrapperProperties;
 import com.example.jappfinder.driver.BrowserDriver;
 import com.example.jappfinder.driver.PropertyAdditionalInfo;
 import com.example.jappfinder.driver.PropertyInfo;
 import com.example.jappfinder.driver.SearchFilter;
 
-@Service
 public class ScrapperImpl implements Scrapper {
 
-	private final BrowserDriver driver;	
+	private final BrowserDriver driver;
 	
-	public ScrapperImpl(BrowserDriverFactory browserFactory) {
-		this.driver = browserFactory.create();
+	public ScrapperImpl(BrowserDriverFactory browserFactory, boolean useProxy, ScrapperProperties scrapperProperties) {
+		this.driver = browserFactory.create(useProxy, scrapperProperties);
 	}
 	
 	@Override

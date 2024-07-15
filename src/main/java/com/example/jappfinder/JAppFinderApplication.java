@@ -3,11 +3,13 @@ package com.example.jappfinder;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.example.jappfinder.config.ScrapperProperties;
 import com.example.jappfinder.driver.BrowserDriverImpl;
 import com.example.jappfinder.driver.SearchFilter;
 
@@ -17,6 +19,7 @@ import java.util.Arrays;
 @SpringBootApplication
 @ComponentScan
 @EnableScheduling
+@EnableConfigurationProperties(ScrapperProperties.class)
 public class JAppFinderApplication {
 
 	public static void main(String[] args) {
