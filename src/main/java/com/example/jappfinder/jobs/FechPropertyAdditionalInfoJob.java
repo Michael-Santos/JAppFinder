@@ -80,11 +80,11 @@ public class FechPropertyAdditionalInfoJob {
 			}
 			
 			scrapper.close();
-			logger.warn("[FetchPropertyAdditionalInfoJob] It was not possible to fetch the additional info for propertyId 463. Retry in 15s");
+			logger.warn("[FetchPropertyAdditionalInfoJob] It was not possible to fetch the additional info for propertyId {}. Retry in 15s", properyId);
 			Thread.sleep(15000);
 		} while (maxRetries > 0);	
 
-		logger.error("[FetchPropertyAdditionalInfoJob] It was not possible to fetch the additional info for propertyId 463. ERROR");
+		logger.error("[FetchPropertyAdditionalInfoJob] It was not possible to fetch the additional info for propertyId {}.", properyId);
 		
 		return new PropertyAdditionalInfo();
 	}
